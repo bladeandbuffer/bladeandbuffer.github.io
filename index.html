@@ -232,6 +232,67 @@
       display: block;
     }
 
+    /* Read-more collapsible */
+    .read-more-body {
+      position: relative;
+      overflow: hidden;
+      max-height: 120px;
+      transition: max-height 0.4s ease;
+    }
+
+    .read-more-body.is-expanded {
+      max-height: 2000px;
+    }
+
+    .read-more-body:not(.is-expanded)::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 48px;
+      background: linear-gradient(to bottom, transparent, #111);
+      pointer-events: none;
+    }
+
+    .read-more-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 10px;
+      background: transparent;
+      border: 1px solid #3a3a3a;
+      color: var(--accent);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .read-more-btn:hover {
+      background: rgba(252, 213, 78, 0.08);
+      border-color: var(--accent);
+    }
+
+    .read-more-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .read-more-btn .btn-arrow {
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+
+    .read-more-btn.is-expanded .btn-arrow {
+      transform: rotate(180deg);
+    }
+
     .demo-image {
       width: 100%;
       max-width: 100%;
@@ -307,9 +368,16 @@
     }
 
     @keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
+    }
 
     @media (max-width: 600px) {
       .callout {
@@ -367,23 +435,39 @@
 
       <section class="content-stage" aria-label="Filtered content">
         <section class="demo-block" data-requires="technical,artist | game,artist" aria-live="polite">
-          Demo block is visible for (Technical + Artist) or (Game + Artist).
+          <div class="read-more-body">
+            Demo block is visible for (Technical + Artist) or (Game + Artist).
+          </div>
+          <button class="read-more-btn" type="button" aria-expanded="false">
+            <span class="btn-label">Read More</span>
+            <span class="btn-arrow" aria-hidden="true">&#8964;</span>
+          </button>
         </section>
 
         <section class="demo-block" data-requires="level,designer" aria-live="polite">
-          <h2> 2D Animations </h2>
+          <h2>2D Animations</h2>
           <img src="img/ezgif-35bdf03b77ba69ee.webp" alt="Sample visual block" loading="lazy" tabindex="0" role="button"
             aria-label="Open image preview" style="width: auto; height: auto; max-width: 100%;" />
           <img src="img/ezgif-33b9b78cb71bf1f6.webp" alt="Sample visual block" loading="lazy" tabindex="0" role="button"
-            aria-label="Open image preview" style="width: 150; height: 150; max-width: 45%;" />
+            aria-label="Open image preview" style="width: 150px; height: 150px; max-width: 45%;" />
           <img src="img/ezgif-3e3eb5d5dc731c01.webp" alt="Sample visual block" loading="lazy" tabindex="0" role="button"
             aria-label="Open image preview" style="width: auto; height: auto; max-width: 45%;" />
-          <br>
-          <p style="margin-left: 10px; margin-right: 5px">I’ve worked on a range of 2D animations: directly inside the Unity engine system, in Spine,
-            and even via code using <p style="animation: bounce 1s ease-in-out infinite;">DoTween</p> and other tweening tools. For UI, I prefer tween-based animation.<br>
-            I can also animate simple characters, since I know the core techniques needed to create solid animations. <p>Of course, asset preparation plays an important role: slicing them or exporting them from Photoshop, and then packing them into atlases. For example, the images you see above used only a single draw call.
-          </p>
-
+          <div class="read-more-body">
+            <p style="margin: 10px 5px;">I've worked on a range of 2D animations: directly inside the Unity engine
+              system, in Spine,
+              and even via code using <span
+                style="display:inline-block; animation: bounce 1s ease-in-out infinite;">DoTween</span> and other
+              tweening tools. For UI, I prefer tween-based animation.<br><br>
+              I can also animate simple characters, since I know the core techniques needed to create solid
+              animations.<br><br>
+              Of course, asset preparation plays an important role: slicing them or exporting them from Photoshop, and
+              then packing them into atlases. For example, the images you see above used <b>only a single draw call</b>.
+            </p>
+          </div>
+          <button class="read-more-btn" type="button" aria-expanded="false">
+            <span class="btn-label">Read More</span>
+            <span class="btn-arrow" aria-hidden="true">&#8964;</span>
+          </button>
         </section>
       </section>
 
@@ -498,6 +582,17 @@
     });
 
     updateState();
+
+    /* Read-more toggle */
+    document.querySelectorAll('.read-more-btn').forEach(btn => {
+      const body = btn.previousElementSibling;
+      btn.addEventListener('click', () => {
+        const expanded = body.classList.toggle('is-expanded');
+        btn.classList.toggle('is-expanded', expanded);
+        btn.setAttribute('aria-expanded', String(expanded));
+        btn.querySelector('.btn-label').textContent = expanded ? 'Show Less' : 'Read More';
+      });
+    });
   </script>
 </body>
 
