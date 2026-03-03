@@ -207,6 +207,18 @@
       text-align: center;
     }
 
+    .badgeMore {
+      margin-top: 0px;
+      width: min(600px, 90vw);
+      background: #1a1a1a;
+      color: #444444;
+      font-size: clamp(10px, 3vw, 16px);
+      font-weight: 800;
+      padding: 16px 20px;
+      border-radius: 4px;
+      text-align: center;
+    }
+
     .content-stage {
       width: min(760px, 100%);
       min-height: 320px;
@@ -236,7 +248,7 @@
     .read-more-body {
       position: relative;
       overflow: hidden;
-      max-height: 120px;
+      max-height: 600px;
       transition: max-height 0.4s ease;
     }
 
@@ -305,6 +317,18 @@
       cursor: zoom-in;
     }
 
+    .demo-noborder-image {
+      width: 100%;
+      max-width: 100%;
+      border-radius: 8px;
+      border: 0px solid #2a2a2a;
+      display: block;
+      object-fit: cover;
+      max-height: 320px;
+      height: auto;
+      cursor: zoom-in;
+    }
+
     .lightbox {
       position: fixed;
       inset: 0;
@@ -362,6 +386,14 @@
       border-color: #8a8a8a;
     }
 
+    .tagline {
+      margin: 10px 5px;
+      font-size: small;
+      color: #fcd54e;
+      text-align: center;
+      font-style: italic;
+    }
+
     .lightbox-close:focus-visible {
       outline: 2px solid var(--accent);
       outline-offset: 2px;
@@ -377,6 +409,53 @@
       50% {
         transform: translateY(-8px);
       }
+    }
+
+    /* To-the-top button */
+    .to-top-btn {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      border: 1px solid #3a3a3a;
+      color: var(--accent);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, opacity 0.25s ease, transform 0.25s ease;
+      z-index: 900;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px);
+    }
+
+    .to-top-btn.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .to-top-btn:hover {
+      background: rgba(252, 213, 78, 0.08);
+      border-color: var(--accent);
+    }
+
+    .to-top-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .to-top-btn .btn-arrow {
+      display: inline-block;
+      transform: rotate(180deg);
     }
 
     @media (max-width: 600px) {
@@ -430,49 +509,39 @@
       </div>
 
       <section class="badge" aria-label="Experience">
-        6+ years in Game Development
+        7+ years in Game Development
+      </section>
+
+      <section class="badgeMore" aria-label="Experience">
+        | UNITY | UNREAL | C# | BLUEPRINTS |<br>
+        | PHOTOSHOP | ILLUSTRATOR | DOTWEEN | FEEL | BLENDER |
       </section>
 
       <section class="content-stage" aria-label="Filtered content">
-        <section class="demo-block" data-requires="technical,artist | game,artist" aria-live="polite">
-          <div class="read-more-body">
-            Demo block is visible for (Technical + Artist) or (Game + Artist).
-          </div>
-          <button class="read-more-btn" type="button" aria-expanded="false">
-            <span class="btn-label">Read More</span>
-            <span class="btn-arrow" aria-hidden="true">&#8964;</span>
-          </button>
+        <section class="demo-block" data-requires="technical,artist | game,artist"
+          data-block="blocks/artist-technical.html" aria-live="polite">
         </section>
 
-        <section class="demo-block" data-requires="level,designer" aria-live="polite">
-          <h2>2D Animations</h2>
-          <img src="img/ezgif-35bdf03b77ba69ee.webp" alt="Sample visual block" loading="lazy" tabindex="0" role="button"
-            aria-label="Open image preview" style="width: auto; height: auto; max-width: 100%;" />
-          <img src="img/ezgif-33b9b78cb71bf1f6.webp" alt="Sample visual block" loading="lazy" tabindex="0" role="button"
-            aria-label="Open image preview" style="width: 150px; height: 150px; max-width: 45%;" />
-          <img src="img/ezgif-3e3eb5d5dc731c01.webp" alt="Sample visual block" loading="lazy" tabindex="0" role="button"
-            aria-label="Open image preview" style="width: auto; height: auto; max-width: 45%;" />
-          <div class="read-more-body">
-            <p style="margin: 10px 5px;">I've worked on a range of 2D animations: directly inside the Unity engine
-              system, in Spine,
-              and even via code using <span
-                style="display:inline-block; animation: bounce 1s ease-in-out infinite;">DoTween</span> and other
-              tweening tools. For UI, I prefer tween-based animation.<br><br>
-              I can also animate simple characters, since I know the core techniques needed to create solid
-              animations.<br><br>
-              Of course, asset preparation plays an important role: slicing them or exporting them from Photoshop, and
-              then packing them into atlases. For example, the images you see above used <b>only a single draw call</b>.
-            </p>
-          </div>
-          <button class="read-more-btn" type="button" aria-expanded="false">
-            <span class="btn-label">Read More</span>
-            <span class="btn-arrow" aria-hidden="true">&#8964;</span>
-          </button>
+        <section class="demo-block" data-requires="game,artist | technical,artist | technical,designer"
+          data-block="blocks/animation-2d.html" aria-live="polite">
+        </section>
+
+        <section class="demo-block" data-requires="technical,artist | technical,designer"
+          data-block="blocks/csharp.html" aria-live="polite">
+        </section>
+
+        <section class="demo-block" data-requires="game,artist | technical,artist" data-block="blocks/art-2d.html"
+          aria-live="polite">
         </section>
       </section>
 
     </div>
   </main>
+
+  <button class="to-top-btn" id="to-top-btn" type="button" aria-label="Back to top">
+    <span class="btn-arrow" aria-hidden="true">&#9660;</span>
+    <span class="btn-label">To The Top</span>
+  </button>
 
   <div class="lightbox" id="lightbox" aria-hidden="true">
     <div class="lightbox-dialog" role="dialog" aria-modal="true" aria-label="Image preview">
@@ -482,22 +551,12 @@
   </div>
 
   <script>
+    // ─── Helpers ───────────────────────────────────────────────────────────
     const toggles = Array.from(document.querySelectorAll('.toggle'));
-    const zoomableImages = Array.from(document.querySelectorAll('.demo-image'));
     const stateHint = document.querySelector('.state-hint');
     const lightbox = document.querySelector('#lightbox');
     const lightboxImage = document.querySelector('#lightbox-image');
     const lightboxClose = document.querySelector('#lightbox-close');
-    const conditionalBlocks = Array.from(document.querySelectorAll('[data-requires]')).map(block => {
-      const combinations = block.dataset.requires
-        .split('|')
-        .map(combo => combo
-          .split(',')
-          .map(item => item.trim())
-          .filter(Boolean))
-        .filter(combo => combo.length > 0);
-      return { block, combinations };
-    });
     const state = Object.fromEntries(toggles.map(btn => [btn.dataset.key, false]));
 
     const labelFor = key => {
@@ -505,29 +564,47 @@
       return btn ? (btn.dataset.label || btn.textContent.trim()) : key;
     };
 
+    // ─── Filter / toggle logic ─────────────────────────────────────────────
+    let conditionalBlocks = [];
+
+    const rebuildConditionalBlocks = () => {
+      conditionalBlocks = Array.from(document.querySelectorAll('[data-requires]')).map(block => {
+        const combinations = block.dataset.requires
+          .split('|')
+          .map(combo => combo.split(',').map(s => s.trim()).filter(Boolean))
+          .filter(combo => combo.length > 0);
+        return { block, combinations };
+      });
+    };
+
     const updateState = () => {
       const active = Object.keys(state).filter(key => state[key]);
-
       toggles.forEach(btn => {
         const on = state[btn.dataset.key];
         btn.classList.toggle('is-active', on);
         btn.setAttribute('aria-pressed', String(on));
       });
-
       stateHint.textContent = active.length
         ? `Active: ${active.map(labelFor).join(', ')}`
         : 'Active: All off';
-
       conditionalBlocks.forEach(({ block, combinations }) => {
         const isVisible = combinations.some(combo => combo.every(key => state[key]));
         block.classList.toggle('is-visible', isVisible);
       });
-
-      document.dispatchEvent(new CustomEvent('filters-changed', {
-        detail: { activeKeys: active }
-      }));
+      document.dispatchEvent(new CustomEvent('filters-changed', { detail: { activeKeys: active } }));
     };
 
+    toggles.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const key = btn.dataset.key;
+        const group = btn.dataset.group;
+        toggles.forEach(c => { if (c.dataset.group === group) state[c.dataset.key] = false; });
+        state[key] = !state[key];
+        updateState();
+      });
+    });
+
+    // ─── Lightbox ──────────────────────────────────────────────────────────
     const openLightbox = (src, altText) => {
       lightboxImage.src = src;
       lightboxImage.alt = altText || '';
@@ -536,62 +613,64 @@
       document.body.style.overflow = 'hidden';
       lightboxClose.focus();
     };
-
     const closeLightbox = () => {
       lightbox.classList.remove('is-open');
       lightbox.setAttribute('aria-hidden', 'true');
       lightboxImage.src = '';
       document.body.style.overflow = '';
     };
-
-    toggles.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const key = btn.dataset.key;
-        const group = btn.dataset.group;
-        const nextValue = !state[key];
-
-        toggles.forEach(candidate => {
-          if (candidate.dataset.group === group) {
-            state[candidate.dataset.key] = false;
-          }
-        });
-
-        state[key] = nextValue;
-        updateState();
-      });
-    });
-
-    zoomableImages.forEach(image => {
-      image.addEventListener('click', () => openLightbox(image.src, image.alt));
-      image.addEventListener('keydown', event => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          openLightbox(image.src, image.alt);
-        }
-      });
-    });
-
     lightboxClose.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', event => {
-      if (event.target === lightbox) closeLightbox();
-    });
-    document.addEventListener('keydown', event => {
-      if (event.key === 'Escape' && lightbox.classList.contains('is-open')) {
-        closeLightbox();
-      }
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();
     });
 
-    updateState();
-
-    /* Read-more toggle */
-    document.querySelectorAll('.read-more-btn').forEach(btn => {
-      const body = btn.previousElementSibling;
-      btn.addEventListener('click', () => {
-        const expanded = body.classList.toggle('is-expanded');
-        btn.classList.toggle('is-expanded', expanded);
-        btn.setAttribute('aria-expanded', String(expanded));
-        btn.querySelector('.btn-label').textContent = expanded ? 'Show Less' : 'Read More';
+    // ─── Init: wire up images and read-more inside a container ────────────
+    const initBlock = (container) => {
+      container.querySelectorAll('.demo-image').forEach(img => {
+        img.addEventListener('click', () => openLightbox(img.src, img.alt));
+        img.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(img.src, img.alt); }
+        });
       });
+      container.querySelectorAll('.read-more-btn').forEach(btn => {
+        const body = btn.previousElementSibling;
+        btn.addEventListener('click', () => {
+          const expanded = body.classList.toggle('is-expanded');
+          btn.classList.toggle('is-expanded', expanded);
+          btn.setAttribute('aria-expanded', String(expanded));
+          btn.querySelector('.btn-label').textContent = expanded ? 'Show Less' : 'Read More';
+        });
+      });
+    };
+
+    // ─── Load blocks from separate files ──────────────────────────────────
+    const blockPlaceholders = Array.from(document.querySelectorAll('[data-block]'));
+    const loads = blockPlaceholders.map(el =>
+      fetch(el.dataset.block)
+        .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
+        .then(html => {
+          el.innerHTML = html;
+          initBlock(el);
+        })
+        .catch(() => {
+          el.innerHTML = '<p style="color:#888;padding:12px">Block could not be loaded.</p>';
+        })
+    );
+
+    Promise.all(loads).then(() => {
+      rebuildConditionalBlocks();
+      updateState();
+    });
+
+    // ─── To-the-top button ─────────────────────────────────────────────────
+    const toTopBtn = document.getElementById('to-top-btn');
+    const onScroll = () => {
+      toTopBtn.classList.toggle('is-visible', window.scrollY > 80);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    toTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>
 </body>
